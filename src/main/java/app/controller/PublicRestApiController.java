@@ -79,7 +79,7 @@ public class PublicRestApiController {
         return "Some report data";
     }
 
-    @PostMapping(value = "management/updateArticle", produces = "applicatin/json;")
+    @PostMapping(value = "management/updateArticle", produces = "application/json;")
     public void updateArticle(@RequestBody Article request, Principal principal, HttpServletResponse response) throws IOException {
         if (!articleService.isNameVacant(request.getName())) {
             articleService.updateArticle(request);
