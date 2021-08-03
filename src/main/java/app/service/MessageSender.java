@@ -16,7 +16,7 @@ public class MessageSender {
     @Autowired
     ConnectionFactory connectionFactory;
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 2000)
     public void rpcWithSpringJmsTemplate() throws JMSException {
         Connection clientConnection = connectionFactory.createConnection();
         clientConnection.start();
@@ -27,13 +27,21 @@ public class MessageSender {
         tpl.send("demoqueue", session -> {
             TextMessage message = session.createTextMessage(messageContent);
             message.setJMSCorrelationID(messageContent);
+            clientConnection.close();
             return message;
         });
+
     }
 
     /*
     TODO пример JMS producer описан и подключен к RabbitMQ
     TODO Придумать какие сообщения и на какие узлы буду отправляться, реализовать
     TODO Реализовать Listener на базе Spring Boot (@JMSListener)
+
+    //Пример Listener (@JMSListener) реализован
+
+    TODO на первом узле реализовать контроллер лайков статей, который через RABBITMQ передает сообщение с логином и статьей
+    на второй узел
+    на втором узле бахнуть логику обработки лайков, создать таблицу лайков.
      */
 }

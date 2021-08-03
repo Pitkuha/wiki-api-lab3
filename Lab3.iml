@@ -138,9 +138,6 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.2.1.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.18.12" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20201115" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-jta-bitronix:2.2.1.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.jms:jakarta.jms-api:2.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.btm:btm:2.1.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jms:5.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-messaging:5.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.2.1.RELEASE" level="project" />

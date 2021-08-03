@@ -12,5 +12,6 @@ public class MessageListener {
     @JmsListener(destination = "demoqueue")
     public void getMessage(String content){
         logger.info("Received queue message. Content is " + content);
+        System.out.println();
     }
 }
