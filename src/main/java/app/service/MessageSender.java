@@ -16,7 +16,7 @@ public class MessageSender {
     @Autowired
     ConnectionFactory connectionFactory;
 
-    @Scheduled(fixedRate = 2000)
+//    @Scheduled(fixedRate = 2000)
     public void rpcWithSpringJmsTemplate() throws JMSException {
         Connection clientConnection = connectionFactory.createConnection();
         clientConnection.start();
@@ -30,7 +30,21 @@ public class MessageSender {
             clientConnection.close();
             return message;
         });
+    }
 
+    public void sendMessage(String messageFS) throws JMSException {
+        Connection clientConnection = connectionFactory.createConnection();
+        clientConnection.start();
+
+        JmsTemplate tpl = new JmsTemplate(connectionFactory);
+        tpl.setReceiveTimeout(2000);
+
+        tpl.send("demoqueue", session -> {
+            TextMessage message = session.createTextMessage(messageFS);
+            message.setJMSCorrelationID(messageFS);
+            clientConnection.close();
+            return message;
+        });
     }
 
     /*

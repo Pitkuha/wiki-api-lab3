@@ -6,10 +6,12 @@ import app.model.ArticleDTO;
 import app.model.User;
 import app.service.ArticleService;
 import app.service.HistoryService;
+import app.service.MessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.JMSException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
@@ -27,6 +29,8 @@ public class PublicRestApiController {
     private ArticleService articleService;
     @Autowired
     private HistoryService historyService;
+    @Autowired
+    private MessageSender messageSender;
 
     public PublicRestApiController(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -71,6 +75,13 @@ public class PublicRestApiController {
             response.sendError(418, "Несуществующая статья");
             return null;
         }
+    }
+
+    @PostMapping(value = "/likeArticle")
+    public String likeArticle(String artID, Principal principal) throws JMSException {
+        String forsend = artID + " " + principal.getName();
+        messageSender.sendMessage(forsend);
+        return "like it!";
     }
 
     //Available to managers
